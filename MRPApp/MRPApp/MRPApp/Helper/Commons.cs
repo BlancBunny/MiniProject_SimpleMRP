@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NLog;
+using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,6 +16,7 @@ namespace MRPApp
         public static readonly Logger LOGGER = LogManager.GetCurrentClassLogger();
 
         // 로그인한 유저 정보
+        public static string PlANTCODE = string.Empty;
 
         /// <summary>
         /// MD5 암호화처리 메서드

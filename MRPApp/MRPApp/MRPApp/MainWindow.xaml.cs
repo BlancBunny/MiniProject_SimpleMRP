@@ -18,6 +18,9 @@ using MRPApp.View;
 using MRPApp.View.Account;
 using MRPApp.View.Store;
 using MRPApp.View.Setting;
+using MRPApp.View.Schedule;
+using MRPApp.View.Process;
+using System.Configuration;
 
 namespace MRPApp
 {
@@ -93,6 +96,48 @@ namespace MRPApp
             catch (Exception ex)
             {
                 Commons.LOGGER.Error($"예외발생 BtnSettingList_Click : {ex}");
+                this.ShowMessageAsync("예외", $"예외발생 : {ex}");
+            }
+        }
+
+        private void BtnSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ActiveControl.Content = new ScheduleList();
+            }
+            catch (Exception ex)
+            {
+                Commons.LOGGER.Error($"예외발생 BtnSettingList_Click : {ex}");
+                this.ShowMessageAsync("예외", $"예외발생 : {ex}");
+            }
+        }
+
+        private void MetroWindow_Activated(object sender, EventArgs e)
+        {
+            var plantCode = ConfigurationManager.AppSettings.Get("PlantCode");
+            // BtnPlantName.Content = temp;
+            try
+            {
+                var plantName = Logic.DataAccess.GetSettings().Where(c => c.BasicCode.Equals(plantCode)).FirstOrDefault().CodeName;
+                BtnPlantName.Content = plantName;
+                Commons.PlANTCODE = plantCode;
+            }
+            catch (Exception ex)
+            {
+                Commons.LOGGER.Error($"예외 발생 : {ex.Message}");
+            }
+        }
+
+        private void BtnMonitoring_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ActiveControl.Content = new ProcessView();
+            }
+            catch (Exception ex)
+            {
+                Commons.LOGGER.Error($"예외발생 BtnProcessView_Click : {ex}");
                 this.ShowMessageAsync("예외", $"예외발생 : {ex}");
             }
         }

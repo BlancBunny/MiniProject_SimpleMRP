@@ -16,9 +16,7 @@ using Brushes = System.Windows.Media.Brushes;
 
 namespace MRPApp.View.Schedule
 {
-    /// <summary>
-    /// MyAccount.xaml에 대한 상호 작용 논리
-    /// </summary>
+
     public partial class ScheduleList : Page
     {
         public ScheduleList()
@@ -30,8 +28,8 @@ namespace MRPApp.View.Schedule
         {
             try
             {
+                LoadControlData(); // 콤보박스 데이터 로딩 메소드 
                 LoadGridData();
-
                 InitErrorMessages();
             }
             catch (Exception ex)
@@ -41,43 +39,169 @@ namespace MRPApp.View.Schedule
             }
         }
 
+        private void LoadControlData()
+        {
+            var plantCodes = Logic.DataAccess.GetSettings().Where(c => c.BasicCode.Contains("PC01")).ToList();
+            cboPlantCode.ItemsSource = plantCodes;
+            CboGridPlantCode.ItemsSource = plantCodes;
+
+            var facilityIDs = Logic.DataAccess.GetSettings().Where(c => c.BasicCode.Contains("FAC1")).ToList();
+            cboSchFacilityID.ItemsSource = facilityIDs;
+        }
+
         private bool IsvalidInputs()
         {
             var isValid = true;
             InitErrorMessages();
 
-            if (string.IsNullOrEmpty(txtBasicCode.Text))
+            if (cboPlantCode.SelectedValue == null)
             {
-                lblBasicCode.Visibility = Visibility.Visible;
-                lblBasicCode.Text = "코드를 입력하세요";
-                isValid = false; 
-            }
-            else if (Logic.DataAccess.GetSettings().Where(s => s.BasicCode.Equals(txtBasicCode.Text)).Count() > 0)
-            {
-                lblBasicCode.Visibility = Visibility.Visible;
-                lblBasicCode.Text = "중복 코드가 존재합니다";
+                lblPlantCode.Visibility = Visibility.Visible;
+                lblPlantCode.Text = "공장을 선택하세요";
                 isValid = false;
             }
 
-            if (string.IsNullOrEmpty(txtCodeName.Text))
-            {
-                lblCodeName.Visibility = Visibility.Visible;
-                lblCodeName.Text = "코드명을 입력하세요";
+            if (string.IsNullOrEmpty(dtpSchDate.Text)) {
+                lblSchDate.Visibility = Visibility.Visible;
+                lblSchDate.Text = "공정일을 입력하세요";
                 isValid = false;
             }
+
+            else if (Logic.DataAccess.GetSchedules().Where(s => s.PlantCode.Equals(cboPlantCode.SelectedValue.ToString()))
+                .Where(d => d.SchDate.Equals(DateTime.Parse(dtpSchDate.Text))).Count() > 0)
+            {
+                lblSchDate.Visibility = Visibility.Visible;
+                lblSchDate.Text = "해당 공장의 공정일 계획이 존재합니다";
+                isValid = false;
+            }
+
+            if (string.IsNullOrEmpty(txtSchLoadTime.Text))
+            {
+                lblSchLoadTime.Visibility = Visibility.Visible;
+                lblSchLoadTime.Text = "로드타임을 입력하세요";
+                isValid = false;
+            }
+
+            if (cboSchFacilityID.SelectedValue == null)
+            {
+                lblSchFacilityID.Visibility = Visibility.Visible;
+                lblSchFacilityID.Text = "공정설비를 선택하세요";
+                isValid = false;
+            }
+
+            if (nudSchAmount.Value <= 0)
+            {
+                lblSchAmount.Visibility = Visibility.Visible;
+                lblSchAmount.Text = "계획수량을 입력하세요";
+                isValid = false;
+            }
+
+
+            //if (string.IsNullOrEmpty(txtBasicCode.Text))
+            //{
+            //    lblBasicCode.Visibility = Visibility.Visible;
+            //    lblBasicCode.Text = "코드를 입력하세요";
+            //    isValid = false; 
+            //}
+            //else if (Logic.DataAccess.GetSettings().Where(s => s.BasicCode.Equals(txtBasicCode.Text)).Count() > 0)
+            //{
+            //    lblBasicCode.Visibility = Visibility.Visible;
+            //    lblBasicCode.Text = "중복 코드가 존재합니다";
+            //    isValid = false;
+            //}
+
+            //if (string.IsNullOrEmpty(txtCodeName.Text))
+            //{
+            //    lblCodeName.Visibility = Visibility.Visible;
+            //    lblCodeName.Text = "코드명을 입력하세요";
+            //    isValid = false;
+            //}
+
+            return isValid;
+        }
+
+        private bool IsvalidUpdates()
+        {
+            var isValid = true;
+            InitErrorMessages();
+
+            if (cboPlantCode.SelectedValue == null)
+            {
+                lblPlantCode.Visibility = Visibility.Visible;
+                lblPlantCode.Text = "공장을 선택하세요";
+                isValid = false;
+            }
+
+            if (string.IsNullOrEmpty(dtpSchDate.Text))
+            {
+                lblSchDate.Visibility = Visibility.Visible;
+                lblSchDate.Text = "공정일을 입력하세요";
+                isValid = false;
+            }
+
+            /*else if (Logic.DataAccess.GetSchedules().Where(s => s.PlantCode.Equals(cboPlantCode.SelectedValue.ToString()))
+                .Where(d => d.SchDate.Equals(DateTime.Parse(dtpSchDate.Text))).Count() > 0)
+            {
+                lblSchDate.Visibility = Visibility.Visible;
+                lblSchDate.Text = "해당 공장의 공정일 계획이 존재합니다";
+                isValid = false;
+            }*/
+
+            if (string.IsNullOrEmpty(txtSchLoadTime.Text))
+            {
+                lblSchLoadTime.Visibility = Visibility.Visible;
+                lblSchLoadTime.Text = "로드타임을 입력하세요";
+                isValid = false;
+            }
+
+            if (cboSchFacilityID.SelectedValue == null)
+            {
+                lblSchFacilityID.Visibility = Visibility.Visible;
+                lblSchFacilityID.Text = "공정설비를 선택하세요";
+                isValid = false;
+            }
+
+            if (nudSchAmount.Value <= 0)
+            {
+                lblSchAmount.Visibility = Visibility.Visible;
+                lblSchAmount.Text = "계획수량을 입력하세요";
+                isValid = false;
+            }
+
+
+            //if (string.IsNullOrEmpty(txtBasicCode.Text))
+            //{
+            //    lblBasicCode.Visibility = Visibility.Visible;
+            //    lblBasicCode.Text = "코드를 입력하세요";
+            //    isValid = false; 
+            //}
+            //else if (Logic.DataAccess.GetSettings().Where(s => s.BasicCode.Equals(txtBasicCode.Text)).Count() > 0)
+            //{
+            //    lblBasicCode.Visibility = Visibility.Visible;
+            //    lblBasicCode.Text = "중복 코드가 존재합니다";
+            //    isValid = false;
+            //}
+
+            //if (string.IsNullOrEmpty(txtCodeName.Text))
+            //{
+            //    lblCodeName.Visibility = Visibility.Visible;
+            //    lblCodeName.Text = "코드명을 입력하세요";
+            //    isValid = false;
+            //}
 
             return isValid;
         }
 
         private void InitErrorMessages()
         {
-            throw new NotImplementedException();
+            lblPlantCode.Visibility = lblSchDate.Visibility = lblSchLoadTime.Visibility = lblSchStartTime.Visibility
+                = lblSchEndTime.Visibility = lblSchAmount.Visibility = lblSchFacilityID.Visibility = Visibility.Hidden;
         }
 
         private void LoadGridData()
         {
-            List<Model.Settings> settings = Logic.DataAccess.GetSettings();
-            GrdData.ItemsSource = settings;
+            List<Model.Schedules> schedules = Logic.DataAccess.GetSchedules();
+            GrdData.ItemsSource = schedules;
         }
 
         private void BtnEditUser_Click(object sender, RoutedEventArgs e)
@@ -127,58 +251,88 @@ namespace MRPApp.View.Schedule
 
         private async void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
-            var setting = new Model.Settings();
-            setting.BasicCode = txtBasicCode.Text;
-            setting.CodeName = txtCodeName.Text;
-            setting.CodeDesc = txtCodeDesc.Text;
-            setting.RegDate = DateTime.Now;
-            setting.RegID = "MRP";
+
+            if (IsvalidInputs() != true) return;
+
+            var item = new Model.Schedules();
+            
+            item.PlantCode = cboPlantCode.SelectedValue.ToString();
+            item.SchDate = DateTime.Parse(dtpSchDate.Text);
+            item.PrcLoadTime = int.Parse(txtSchLoadTime.Text);
+            if (tmpSchStartTime.SelectedDateTime != null)
+                item.SchStartTime = tmpSchStartTime.SelectedDateTime.Value.TimeOfDay;
+            if (tmpSchEndTime.SelectedDateTime != null)
+                item.SchEndTime = tmpSchEndTime.SelectedDateTime.Value.TimeOfDay;
+            item.SchFacilityID = cboSchFacilityID.SelectedValue.ToString();
+            item.SchAmount = (int)nudSchAmount.Value;
+
+            item.RegDate = DateTime.Now;
+            item.RegID = "MRP";
+
+
+
+
 
             try
             {
-                var result = Logic.DataAccess.SetSettings(setting);
+                var result = Logic.DataAccess.SetSchedules(item);
                 if (result == 0)
                 {
-                    Commons.LOGGER.Error("데이터 수정시 오류 발생");
+                    Commons.LOGGER.Error("Schedules Insert Error");
                     await Commons.ShowMessageAsync("오류", "데이터 수정실패");
                 }
                 else
                 {
-                    Commons.LOGGER.Info("데이터 수정 성공");
+                    Commons.LOGGER.Info("Schedules Insert Success");
                     ClearInputs();
                     LoadGridData();
                 }
-                
 
 
             }
             catch (Exception ex)
             {
                 Commons.LOGGER.Error($"예외 발생 : {ex}");
-                throw;
             }
         }
 
         private async void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            var setting = GrdData.SelectedItem as Model.Settings;
-            setting.CodeName = txtCodeName.Text;
-            setting.CodeDesc = txtCodeDesc.Text;
-            setting.ModDate = DateTime.Now;
-            setting.ModID = "MRP";
-            
+            if (IsvalidUpdates() != true) return;
+
+            var schedules = GrdData.SelectedItem as Model.Schedules;
+            //setting.CodeName = txtCodeName.Text;
+            //setting.CodeDesc = txtCodeDesc.Text;
+            //setting.ModDate = DateTime.Now;
+            //setting.ModID = "MRP";
+
+            var item = GrdData.SelectedItem as Model.Schedules;
+            item.PlantCode = cboPlantCode.SelectedValue.ToString();
+            item.SchDate = DateTime.Parse(dtpSchDate.Text);
+            item.PrcLoadTime = int.Parse(txtSchLoadTime.Text);
+            item.SchStartTime = tmpSchStartTime.SelectedDateTime.Value.TimeOfDay;
+            item.SchEndTime = tmpSchEndTime.SelectedDateTime.Value.TimeOfDay;
+            item.SchFacilityID = cboSchFacilityID.SelectedValue.ToString();
+            item.SchAmount = (int)nudSchAmount.Value;
+
+            item.ModDate = DateTime.Now;
+            item.ModID = "MRP";
+
+
+
+
 
             try
             {
-                var result = Logic.DataAccess.SetSettings(setting);
+                var result = Logic.DataAccess.SetSchedules(schedules);
                 if (result == 0)
                 {
-                    Commons.LOGGER.Error("데이터 수정시 오류 발생");
+                    Commons.LOGGER.Error("Schedules Update Error");
                     await Commons.ShowMessageAsync("오류", "데이터 수정실패");
                 }
                 else
                 {
-                    Commons.LOGGER.Info("데이터 수정 성공");
+                    Commons.LOGGER.Info("Schedules Update Success");
                     ClearInputs();
                     LoadGridData();
                 }
@@ -188,17 +342,21 @@ namespace MRPApp.View.Schedule
             catch (Exception ex)
             {
                 Commons.LOGGER.Error($"예외 발생 : {ex}");
-                throw;
             }
         }
 
         private void ClearInputs()
         {
-            txtBasicCode.IsReadOnly = false;
-            txtBasicCode.Background = new SolidColorBrush(Colors.White);
-            txtBasicCode.Text = txtCodeName.Text = txtCodeDesc.Text = string.Empty;
+            txtSchIdx.Text = "";
+            cboPlantCode.SelectedItem = null;
+            dtpSchDate.Text = "";
+            txtSchLoadTime.Text = "";
+            tmpSchStartTime.SelectedDateTime = null;
+            tmpSchEndTime.SelectedDateTime = null;
+            cboSchFacilityID.SelectedItem = null;
+            nudSchAmount.Value = 0;
 
-            txtBasicCode.Focus();
+            cboPlantCode.Focus();
         }
 
         private void BtnNew_Click(object sender, RoutedEventArgs e)
@@ -209,23 +367,36 @@ namespace MRPApp.View.Schedule
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            var search = txtSearch.Text.Trim();
-
-            var settings = Logic.DataAccess.GetSettings().Where(s => s.CodeName.Contains(search)).ToList();
-            GrdData.ItemsSource = settings;
+            var search = dtpSearchDate.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                LoadGridData();
+                return;
+            }
+                
+            var dataList = Logic.DataAccess.GetSchedules().Where(s => s.SchDate.Equals(DateTime.Parse(search))).ToList();
+            GrdData.ItemsSource = dataList;
         }
 
         private void GrdData_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             try
             {
-                var setting = GrdData.SelectedItem as Model.Settings;
-                txtBasicCode.Text = setting.BasicCode;
-                txtCodeName.Text = setting.CodeName;
-                txtCodeDesc.Text = setting.CodeDesc;
+                var item = GrdData.SelectedItem as Model.Schedules;
+                txtSchIdx.Text = item.SchIdx.ToString();
+                cboPlantCode.SelectedValue = item.PlantCode;
+                dtpSchDate.Text = item.SchDate.ToString();
+                txtSchLoadTime.Text = item.PrcLoadTime.ToString();
+                if (item.SchStartTime != null)
+                    tmpSchStartTime.SelectedDateTime = new DateTime(item.SchDate.Ticks + item.SchStartTime.Value.Ticks);
+                else tmpSchStartTime.SelectedDateTime = null;
 
-                txtBasicCode.IsReadOnly = true;
-                txtBasicCode.Background = new SolidColorBrush(Colors.LightGray);
+                if (item.SchEndTime != null)
+                    tmpSchEndTime.SelectedDateTime = new DateTime(item.SchDate.Ticks + item.SchEndTime.Value.Ticks);
+                else tmpSchEndTime.SelectedDateTime = null;
+                cboSchFacilityID.SelectedValue = item.SchFacilityID;
+                nudSchAmount.Value = item.SchAmount;
+                
             }
             catch (Exception ex)
             {

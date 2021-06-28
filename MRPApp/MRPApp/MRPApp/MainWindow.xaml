@@ -10,7 +10,8 @@
     mc:Ignorable="d"
     Title="Simple MRP System" Height="700" Width="1200" 
     Icon="/Resources/factory.png"
-    ContentRendered="MetroWindow_ContentRendered" WindowStartupLocation="CenterScreen">
+    ContentRendered="MetroWindow_ContentRendered" WindowStartupLocation="CenterScreen"
+    Activated="MetroWindow_Activated">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button x:Name="BtnPlantName"/>
@@ -33,7 +34,7 @@
                     Grid.Column="0" 
                     Content="공정계획" FontSize="16" 
                     Foreground="White" Background="DodgerBlue"
-                    Margin="5, 10">
+                    Margin="5, 10" Click="BtnSchedule_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -48,7 +49,7 @@
                     Grid.Column="1" 
                     Content="모니터링" FontSize="16" 
                     Foreground="White" Background="ForestGreen"
-                    Margin="5, 10">
+                    Margin="5, 10" Click="BtnMonitoring_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

@@ -14,9 +14,6 @@ using System.Windows.Controls;
 
 namespace MRPApp.View.Store
 {
-    /// <summary>
-    /// MyAccount.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class StoreList : Page
     {
         public StoreList()
@@ -63,24 +60,7 @@ namespace MRPApp.View.Store
             }
         }
 
-        private void BtnEditStore_Click(object sender, RoutedEventArgs e)
-        {
-            if (GrdData.SelectedItem == null)
-            {
-                Commons.ShowMessageAsync("창고수정", "수정할 창고를 선택하세요");
-                return;
-            }
-
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
-                Commons.LOGGER.Error($"예외발생 BtnEditStore_Click : {ex}");
-                throw ex;
-            }
-        }
+       
 
         private void BtnExportExcel_Click(object sender, RoutedEventArgs e)
         {

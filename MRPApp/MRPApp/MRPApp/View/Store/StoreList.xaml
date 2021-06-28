@@ -59,7 +59,7 @@
             <Button x:Name="BtnEditStore" 
                     FontSize="14"
                     Background="DarkSlateBlue" Foreground="White"
-                    Content="창고수정" Height="50" Margin="5,5" Click="BtnEditStore_Click">
+                    Content="창고수정" Height="50" Margin="5,5">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

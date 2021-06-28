@@ -30,5 +30,26 @@ namespace MRPApp.Logic
                 return ctx.SaveChanges(); // COMMIT
             }
         }
+
+        public static List<Schedules> GetSchedules()
+        {
+            List<Model.Schedules> schedules;
+
+            using (MRPEntities ctx = new MRPEntities())
+            {
+                schedules = ctx.Schedules.ToList();
+            }
+
+            return schedules;
+        }
+
+        public static int SetSchedules(Schedules item)
+        {
+            using (MRPEntities ctx = new MRPEntities())
+            {
+                ctx.Schedules.AddOrUpdate(item);
+                return ctx.SaveChanges(); // COMMIT
+            }
+        }
     }
 }

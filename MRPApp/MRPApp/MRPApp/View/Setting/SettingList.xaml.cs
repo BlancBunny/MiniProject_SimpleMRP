@@ -16,9 +16,6 @@ using Brushes = System.Windows.Media.Brushes;
 
 namespace MRPApp.View.Setting
 {
-    /// <summary>
-    /// MyAccount.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class SettingList : Page
     {
         public SettingList()
@@ -31,13 +28,11 @@ namespace MRPApp.View.Setting
             try
             {
                 LoadGridData();
-
                 InitErrorMessages();
             }
             catch (Exception ex)
             {
                 Commons.LOGGER.Error($"예외발생 StoreList Loaded : {ex}");
-                throw ex;
             }
         }
 
