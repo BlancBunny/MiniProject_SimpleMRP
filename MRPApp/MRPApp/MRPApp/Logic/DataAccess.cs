@@ -1,10 +1,7 @@
 ﻿using MRPApp.Model;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MRPApp.Logic
 {
@@ -12,7 +9,7 @@ namespace MRPApp.Logic
     {
         public static List<Settings> GetSettings()
         {
-            List<Model.Settings> settings;
+            List<Settings> settings;
 
             using (MRPEntities ctx = new MRPEntities())
             {
@@ -33,7 +30,7 @@ namespace MRPApp.Logic
 
         public static List<Schedules> GetSchedules()
         {
-            List<Model.Schedules> schedules;
+            List<Schedules> schedules;
 
             using (MRPEntities ctx = new MRPEntities())
             {
@@ -48,6 +45,27 @@ namespace MRPApp.Logic
             using (MRPEntities ctx = new MRPEntities())
             {
                 ctx.Schedules.AddOrUpdate(item);
+                return ctx.SaveChanges(); // COMMIT
+            }
+        }
+
+        public static List<Process> GetProcess()
+        {
+            List<Model.Process> process;
+
+            using (MRPEntities ctx = new MRPEntities())
+            {
+                process = ctx.Process.ToList();
+            }
+
+            return process;
+        }
+
+        public static int SetProcess(Process item)
+        {
+            using (MRPEntities ctx = new MRPEntities())
+            {
+                ctx.Process.AddOrUpdate(item);
                 return ctx.SaveChanges(); // COMMIT
             }
         }

@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="PrcIdx" />
           </Key>
-          <Property Name="PrcIdx" Type="int" Nullable="false" />
+          <Property Name="PrcIdx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SchIdx" Type="bigint" Nullable="false" />
           <Property Name="PrcCode" Type="char" MaxLength="14" Nullable="false" />
           <Property Name="PrcDate" Type="date" Nullable="false" />
@@ -130,7 +130,7 @@
           <Key>
             <PropertyRef Name="PrcIdx" />
           </Key>
-          <Property Name="PrcIdx" Type="Int32" Nullable="false" />
+          <Property Name="PrcIdx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SchIdx" Type="Int64" Nullable="false" />
           <Property Name="PrcCode" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="PrcDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -229,7 +229,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MRPEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MRPEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Process" EntityType="Self.Process" />
           <EntitySet Name="Schedules" EntityType="Self.Schedules" />
           <EntitySet Name="Settings" EntityType="Self.Settings" />
@@ -255,7 +255,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MRPModelStoreContainer" CdmEntityContainer="MRPEntities1">
+        <EntityContainerMapping StorageEntityContainer="MRPModelStoreContainer" CdmEntityContainer="MRPEntities">
           <EntitySetMapping Name="Process">
             <EntityTypeMapping TypeName="MRPModel.Process">
               <MappingFragment StoreEntitySet="Process">

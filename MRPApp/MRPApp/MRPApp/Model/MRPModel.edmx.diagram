@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1324d87406d44407a16eca8235b517bc" Name="Diagram1">
+      <Diagram DiagramId="62b4272abc71449492bfb559654040c9" Name="Diagram1">
         <EntityTypeShape EntityType="MRPModel.Process" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MRPModel.Schedules" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MRPModel.Settings" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />

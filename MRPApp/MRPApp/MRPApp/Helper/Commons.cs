@@ -17,6 +17,7 @@ namespace MRPApp
 
         // 로그인한 유저 정보
         public static string PlANTCODE = string.Empty;
+        public static string FACILITYID = string.Empty;
 
         /// <summary>
         /// MD5 암호화처리 메서드

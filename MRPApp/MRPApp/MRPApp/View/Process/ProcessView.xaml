@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:MRPApp.View.Process"
     mc:Ignorable="d" 
     d:DesignHeight="630" d:DesignWidth="1200"
-    Title="ProcessView" Loaded="Page_Loaded">
+    Title="ProcessView" Loaded="Page_Loaded" Unloaded="Page_Unloaded" >
     <Page.Resources>
         <Style TargetType="Label">
             <!-- {x:Type Label} -->
@@ -72,18 +72,18 @@
                 <Image HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Height="100" Width="100" Name="gear2"
-                    Source="/WpfSMSApp;component/Resources/gear.png" Canvas.Left="600" Canvas.Top="256">
+                    Source="/Resources/gear.png" Canvas.Left="600" Canvas.Top="256">
                 </Image>
                 <Image HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Height="100" Width="100"
-                    Source="/WpfSMSApp;component/Resources/sensor.png" Canvas.Left="540" Canvas.Top="34">
+                    Height="100" Width="100" Name="sensor"
+                    Source="/Resources/sensor.png" Canvas.Left="540" Canvas.Top="34">
                 </Image>
 
                 <Image HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Height="137" Width="614"
-                    Source="/WpfSMSApp;component/Resources/belt.png" Canvas.Left="108" Canvas.Top="237" RenderTransformOrigin="0.51,0.633">
+                    Source="/Resources/belt.png" Canvas.Left="108" Canvas.Top="237" RenderTransformOrigin="0.51,0.633">
                 </Image>
                 <Rectangle Name="product" Height="50" Width="50" Stroke="black" Fill="Gray" Canvas.Left="175" Canvas.Top="188" RenderTransformOrigin="8.13,0.61">
 
@@ -101,6 +101,10 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130"/>
@@ -112,7 +116,15 @@
             <Label Grid.Row="1" Grid.Column="0" Content="공정로드타임" FontSize="20"  />
             <Label Grid.Row="1" Grid.Column="1" Name="lblSchLoadTime" FontSize="20" />
             <Label Grid.Row="2" Grid.Column="0" Content="계획수량" FontSize="20"  />
-            <Label Grid.Row="2" Grid.Column="1" Name="lblSchAmount" Content="100개" FontSize="20" />
+            <Label Grid.Row="2" Grid.Column="1" Name="lblSchAmount" Content="100 개" FontSize="20" />
+            <Label Grid.Row="3" Grid.Column="0" Content="성공수량" FontSize="20"  />
+            <Label Grid.Row="3" Grid.Column="1" Name="lblSuccessAmount" Content="50 개" FontSize="20" />
+            <Label Grid.Row="4" Grid.Column="0" Content="실패수량" FontSize="20"  />
+            <Label Grid.Row="4" Grid.Column="1" Name="lblFailAmount" Content="50 개" FontSize="20" />
+            <Label Grid.Row="5" Grid.Column="0" Content="성공률" FontSize="20"  />
+            <Label Grid.Row="5" Grid.Column="1" Name="lblSuccessRatio" Content="50 %" FontSize="20" />
+            <Label Grid.Row="6" Grid.Column="0" Content="실패율" FontSize="20"  />
+            <Label Grid.Row="6" Grid.Column="1" Name="lblFailRatio" Content="50 %" FontSize="20" />
         </Grid>
         <!--모니터링 영역 끝-->
     </Grid>
