@@ -119,8 +119,8 @@ namespace MRPApp.View.Process
 
             lblSuccessAmount.Content = $"{prcSuccessAmount} 개";
             lblFailAmount.Content = $"{prcFailAmount} 개";
-            lblSuccessRatio.Content = $"{prcSuccessRatio} %";
-            lblFailRatio.Content = $"{prcFailRatio} %";
+            lblSuccessRatio.Content = $"{prcSuccessRatio:#.##} %";
+            lblFailRatio.Content = $"{prcFailRatio:#.##} %";
         }
 
         Dictionary<string, string> currentData = new Dictionary<string, string>();
